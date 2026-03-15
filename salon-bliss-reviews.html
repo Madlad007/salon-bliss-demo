@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews — Salon Bliss | Ocala, FL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:  #0a0a0a;
+    --white:  #faf8f5;
+    --blush:  #f0d9d0;
+    --mauve:  #c4919e;
+    --deep:   #8b4f6b;
+    --gold:   #c9a96e;
+    --text:   #1a1a1a;
+    --muted:  #6b5b58;
+    --border: rgba(0,0,0,.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: rgba(250,248,245,.93);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 rgba(0,0,0,.06);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600; letter-spacing: .05em;
+    color: var(--deep); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: .78rem; font-weight: 500; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--deep); }
+  .nav-links a.active { color: var(--deep); }
+  .nav-cta {
+    background: var(--deep); color: var(--white) !important;
+    padding: .55rem 1.4rem; border-radius: 2rem; transition: background .25s !important;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+
+  /* ── HERO ── */
+  .page-hero {
+    padding-top: 76px;
+    min-height: 480px;
+    position: relative; overflow: hidden;
+    display: flex; align-items: flex-end;
+    padding-bottom: 5rem;
+    background: var(--black);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(135deg, rgba(10,10,10,.8) 0%, rgba(10,10,10,.5) 100%),
+      url('https://d14tal8bchn59o.cloudfront.net/iefDp6Cvaw4zd1PCB_fAs42ra8QcdRTBE_W9zpSeNmQ/rs:fill:960:960:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2766852/IMG_3572_original.jpg')
+      center/cover no-repeat;
+    transform: scale(1.05);
+    animation: heroZoom 14s ease-out forwards;
+  }
+  @keyframes heroZoom { to { transform: scale(1); } }
+  .hero-glow {
+    position: absolute; inset: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 80% 40%, rgba(196,145,158,.3) 0%, transparent 55%);
+  }
+  .hero-content {
+    position: relative; z-index: 2; padding: 0 3rem; max-width: 760px;
+  }
+  .breadcrumb {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .7rem; letter-spacing: .16em; text-transform: uppercase;
+    color: rgba(255,255,255,.35); margin-bottom: 1.8rem;
+  }
+  .breadcrumb a { color: rgba(255,255,255,.35); text-decoration: none; transition: color .2s; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb span { color: var(--gold); }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: .7rem;
+    font-size: .7rem; font-weight: 600; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    animation: fadeUp .8s .2s both;
+  }
+  .hero-eyebrow::before { content: ''; display: block; width: 24px; height: 1px; background: var(--gold); }
+  .hero-content h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5.5rem); font-weight: 300;
+    line-height: 1.08; color: var(--white);
+    animation: fadeUp .9s .4s both;
+  }
+  .hero-content h1 em { font-style: italic; color: var(--mauve); }
+  .hero-sub {
+    margin-top: 1.3rem; font-size: .97rem;
+    color: rgba(255,255,255,.5); line-height: 1.75; max-width: 480px;
+    animation: fadeUp .9s .6s both;
+  }
+
+  /* Rating summary pills */
+  .hero-ratings {
+    margin-top: 2.2rem; display: flex; gap: 1.2rem; flex-wrap: wrap;
+    animation: fadeUp .9s .8s both;
+  }
+  .rating-pill {
+    display: flex; align-items: center; gap: .7rem;
+    background: rgba(255,255,255,.07); backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 3rem; padding: .6rem 1.2rem;
+  }
+  .rating-pill .stars { color: var(--gold); font-size: .9rem; letter-spacing: .05em; }
+  .rating-pill strong { font-size: .88rem; font-weight: 600; color: var(--white); }
+  .rating-pill span { font-size: .7rem; color: rgba(255,255,255,.45); letter-spacing: .05em; }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--deep);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+  }
+  .stat-item {
+    padding: 2rem 2.5rem; text-align: center;
+    border-right: 1px solid rgba(255,255,255,.1);
+    transition: background .2s;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-item:hover { background: rgba(255,255,255,.05); }
+  .stat-item strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; font-weight: 300; color: var(--white); line-height: 1;
+  }
+  .stat-item span { font-size: .68rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.5); margin-top: .3rem; display: block; }
+
+  /* ── SECTION SHARED ── */
+  .section-label {
+    display: inline-flex; align-items: center; gap: .7rem;
+    font-size: .7rem; font-weight: 600; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--mauve); margin-bottom: .8rem;
+  }
+  .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--mauve); }
+  h2.display {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.15;
+  }
+  h2.display em { font-style: italic; color: var(--deep); }
+
+  /* ── FEATURED QUOTE ── */
+  .featured-quote {
+    background: var(--blush); padding: 6rem 3rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .featured-quote::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18rem; font-weight: 300; color: rgba(139,79,107,.08);
+    position: absolute; top: -4rem; left: 50%; transform: translateX(-50%);
+    line-height: 1; pointer-events: none; user-select: none;
+  }
+  .featured-quote blockquote {
+    position: relative; z-index: 1;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.6rem, 3.5vw, 2.6rem); font-weight: 300; font-style: italic;
+    line-height: 1.55; color: var(--text); max-width: 860px; margin: 0 auto 1.8rem;
+  }
+  .featured-author {
+    position: relative; z-index: 1;
+    font-size: .8rem; font-weight: 600; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--deep);
+    display: flex; align-items: center; justify-content: center; gap: .8rem;
+  }
+  .featured-author::before, .featured-author::after {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--mauve);
+  }
+  .feat-stars { color: var(--gold); font-size: .95rem; display: block; margin-bottom: .6rem; }
+
+  /* ── REVIEWS GRID ── */
+  .reviews-section {
+    padding: 6rem 3rem;
+    max-width: 1300px; margin: 0 auto;
+  }
+  .reviews-header {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    margin-bottom: 3.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border);
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .review-source-pills { display: flex; gap: .6rem; }
+  .source-pill {
+    font-size: .7rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; padding: .35rem .9rem;
+    border-radius: 2rem; border: 1px solid var(--border);
+    color: var(--muted); cursor: pointer; transition: all .2s;
+    background: none;
+  }
+  .source-pill.active { background: var(--deep); color: var(--white); border-color: var(--deep); }
+  .source-pill:hover:not(.active) { border-color: var(--mauve); color: var(--deep); }
+
+  /* Masonry-style reviews */
+  .reviews-masonry {
+    columns: 3; column-gap: 1.5rem;
+  }
+  .review-card {
+    break-inside: avoid;
+    background: var(--white);
+    border: 1px solid var(--border); border-radius: 6px;
+    padding: 2rem 2rem 1.8rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    box-shadow: 0 2px 16px rgba(0,0,0,.04);
+    transition: transform .25s, box-shadow .25s, border-color .25s;
+  }
+  .review-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(0,0,0,.09);
+    border-color: rgba(196,145,158,.3);
+  }
+  .review-card.featured-card {
+    border-color: var(--mauve);
+    background: linear-gradient(135deg, rgba(196,145,158,.04) 0%, var(--white) 100%);
+  }
+
+  /* Quote mark decoration */
+  .review-card::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 5rem; font-weight: 300; color: rgba(196,145,158,.15);
+    position: absolute; top: .4rem; right: 1.4rem; line-height: 1;
+    pointer-events: none;
+  }
+
+  .review-stars { color: var(--gold); font-size: .85rem; letter-spacing: .06em; margin-bottom: .9rem; }
+  .review-text {
+    font-size: .92rem; color: var(--text); line-height: 1.8;
+    font-style: italic; position: relative; z-index: 1;
+  }
+  .review-text strong { font-style: normal; color: var(--deep); font-weight: 600; }
+
+  /* Reviewer info */
+  .review-footer {
+    margin-top: 1.4rem; padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .reviewer-info { display: flex; align-items: center; gap: .8rem; }
+  .reviewer-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--mauve), var(--deep));
+    display: flex; align-items: center; justify-content: center;
+    font-size: .8rem; font-weight: 700; color: var(--white);
+    flex-shrink: 0;
+  }
+  .reviewer-name { font-size: .85rem; font-weight: 600; color: var(--text); }
+  .reviewer-date { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
+  .review-platform {
+    font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--muted); opacity: .6;
+  }
+
+  /* Stylist tag */
+  .stylist-mention {
+    display: inline-flex; align-items: center; gap: .4rem;
+    margin-top: .8rem;
+    font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: var(--deep); background: rgba(139,79,107,.07);
+    padding: .25rem .75rem; border-radius: 2rem;
+  }
+  .stylist-mention::before { content: '✦'; font-size: .5rem; }
+
+  /* ── WRITE A REVIEW BANNER ── */
+  .write-review {
+    background: var(--black); padding: 5rem 3rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: center; max-width: 100%;
+  }
+  .write-review-content { max-width: 520px; }
+  .write-review-content .section-label { color: var(--gold); }
+  .write-review-content .section-label::before { background: var(--gold); }
+  .write-review-content h2.display { color: var(--white); }
+  .write-review-content h2.display em { color: var(--mauve); }
+  .write-review-content p { margin-top: 1.2rem; font-size: .95rem; color: rgba(255,255,255,.5); line-height: 1.8; }
+  .write-review-btns { margin-top: 2.2rem; display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn-platform {
+    display: inline-flex; align-items: center; gap: .6rem;
+    padding: .85rem 1.8rem; border-radius: 2rem;
+    font-size: .78rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase;
+    text-decoration: none; transition: transform .2s, box-shadow .2s;
+    border: none; cursor: pointer;
+  }
+  .btn-platform:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+  .btn-google { background: var(--white); color: var(--text); }
+  .btn-yelp { background: #d32323; color: var(--white); }
+  .btn-fb { background: #1877f2; color: var(--white); }
+
+  /* Star rating visual */
+  .write-review-visual {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 3rem;
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 6px;
+  }
+  .big-stars {
+    font-size: 2.2rem; color: var(--gold); letter-spacing: .2rem; line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .big-rating {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.5rem; font-weight: 300; color: var(--white); line-height: 1;
+  }
+  .big-rating-sub { font-size: .7rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.4); margin-top: .4rem; }
+  .rating-bar-row { width: 100%; margin-top: 1.8rem; display: flex; flex-direction: column; gap: .5rem; }
+  .rating-bar {
+    display: flex; align-items: center; gap: .8rem;
+    font-size: .72rem; color: rgba(255,255,255,.5);
+  }
+  .rating-bar-track {
+    flex: 1; height: 4px; background: rgba(255,255,255,.08); border-radius: 2px; overflow: hidden;
+  }
+  .rating-bar-fill {
+    height: 100%; background: var(--gold); border-radius: 2px;
+    transition: width 1s cubic-bezier(.25,.46,.45,.94);
+  }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--deep); padding: 5rem 3rem; text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-banner::before {
+    content: ''; position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 80%, rgba(255,255,255,.07) 0%, transparent 55%);
+    pointer-events: none;
+  }
+  .cta-banner h2 {
+    position: relative;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300;
+    color: var(--white); margin-bottom: .8rem;
+  }
+  .cta-banner h2 em { font-style: italic; color: var(--blush); }
+  .cta-banner p { position: relative; color: rgba(255,255,255,.55); font-size: .92rem; margin-bottom: 2.4rem; }
+  .cta-row { position: relative; display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+  .btn-white {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: var(--white); color: var(--deep);
+    padding: .9rem 2.4rem; border-radius: 2rem;
+    font-size: .82rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    text-decoration: none; transition: background .25s, transform .2s;
+  }
+  .btn-white:hover { background: var(--gold); color: var(--black); transform: translateY(-2px); }
+  .btn-outline-light {
+    display: inline-flex; align-items: center; gap: .6rem;
+    border: 1.5px solid rgba(255,255,255,.3); color: rgba(255,255,255,.8);
+    padding: .9rem 2.4rem; border-radius: 2rem;
+    font-size: .82rem; font-weight: 400; letter-spacing: .08em; text-transform: uppercase;
+    text-decoration: none; transition: border-color .25s, background .25s;
+  }
+  .btn-outline-light:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black); color: rgba(255,255,255,.3);
+    padding: 2.5rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+    border-top: 1px solid rgba(255,255,255,.05);
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
+    color: var(--white); font-weight: 400; letter-spacing: .06em; text-decoration: none;
+  }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+  .footer-links a {
+    font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,.3); text-decoration: none; transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .85s cubic-bezier(.25,.46,.45,.94), transform .85s cubic-bezier(.25,.46,.45,.94);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-d1 { transition-delay: .1s; }
+  .reveal-d2 { transition-delay: .2s; }
+  .reveal-d3 { transition-delay: .3s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1024px) { .reviews-masonry { columns: 2; } }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .page-hero { padding: 0 1.5rem 4rem; }
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .reviews-masonry { columns: 1; }
+    .reviews-section { padding: 4rem 1.5rem; }
+    .write-review { grid-template-columns: 1fr; padding: 4rem 1.5rem; }
+    .write-review-visual { display: none; }
+    .featured-quote { padding: 4rem 1.5rem; }
+    .cta-banner { padding: 4rem 1.5rem; }
+    footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="salon-bliss-home.html" class="nav-logo">Salon Bliss</a>
+  <ul class="nav-links">
+    <li><a href="salon-bliss-home.html">Home</a></li>
+    <li><a href="salon-bliss-services.html">Services</a></li>
+    <li><a href="salon-bliss-gallery.html">Gallery</a></li>
+    <li><a href="salon-bliss-specials.html">Specials</a></li>
+    <li><a href="salon-bliss-staff.html">Our Staff</a></li>
+    <li><a href="salon-bliss-contact.html">Contact</a></li>
+    <li><a href="tel:3526209360" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<div class="page-hero">
+  <div class="hero-bg"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-content">
+    <div class="breadcrumb"><a href="salon-bliss-home.html">Home</a> › <span>Reviews</span></div>
+    <div class="hero-eyebrow">What Our Clients Say</div>
+    <h1>Real people,<br><em>real results</em>,<br>real love.</h1>
+    <p class="hero-sub">We let our clients do the talking. Here's what they have to say about their experience at Salon Bliss.</p>
+    <div class="hero-ratings">
+      <div class="rating-pill">
+        <span class="stars">★★★★★</span>
+        <strong>5.0</strong>
+        <span>Google</span>
+      </div>
+      <div class="rating-pill">
+        <span class="stars">★★★★★</span>
+        <strong>5.0</strong>
+        <span>Facebook</span>
+      </div>
+      <div class="rating-pill">
+        <span class="stars">★★★★★</span>
+        <strong>5.0</strong>
+        <span>Yelp</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ STATS BAR ═══════════════════ -->
+<div class="stats-bar">
+  <div class="stat-item reveal">
+    <strong>5.0</strong>
+    <span>Average Rating</span>
+  </div>
+  <div class="stat-item reveal reveal-d1">
+    <strong>100+</strong>
+    <span>Happy Clients</span>
+  </div>
+  <div class="stat-item reveal reveal-d2">
+    <strong>8</strong>
+    <span>Expert Stylists</span>
+  </div>
+  <div class="stat-item reveal reveal-d3">
+    <strong>10+</strong>
+    <span>Years in Ocala</span>
+  </div>
+</div>
+
+<!-- ═══════════════════ FEATURED QUOTE ═══════════════════ -->
+<div class="featured-quote reveal">
+  <span class="feat-stars">★★★★★</span>
+  <blockquote>"Salon Bliss is everything you could want and more in a salon! Jessica is amazing — I left feeling beautiful and confident! Absolutely love my cut and color!"</blockquote>
+  <div class="featured-author">Jody C.</div>
+</div>
+
+<!-- ═══════════════════ REVIEWS GRID ═══════════════════ -->
+<div class="reviews-section">
+  <div class="reviews-header reveal">
+    <div>
+      <div class="section-label">Client Reviews</div>
+      <h2 class="display">Stories from our <em>guests</em></h2>
+    </div>
+    <div class="review-source-pills">
+      <button class="source-pill active" onclick="filterReviews('all', this)">All</button>
+      <button class="source-pill" onclick="filterReviews('hair', this)">Hair</button>
+      <button class="source-pill" onclick="filterReviews('nails', this)">Nails</button>
+      <button class="source-pill" onclick="filterReviews('general', this)">General</button>
+    </div>
+  </div>
+
+  <div class="reviews-masonry" id="reviewsGrid">
+
+    <!-- REVIEW 1 — Melissa O -->
+    <div class="review-card reveal" data-type="general">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Awesome business! Everyone there was nice and friendly. <strong>Jessica</strong> did my hair and was super friendly and did a great job. Highly recommended!"</p>
+      <div class="stylist-mention">Jessica Baroni</div>
+      <div class="review-footer">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">M</div>
+          <div>
+            <div class="reviewer-name">Melissa O.</div>
+            <div class="reviewer-date">Verified Client</div>
+          </div>
+        </div>
+        <div class="review-platform">Google</div>
+      </div>
+    </div>
+
+    <!-- REVIEW 2 — Dylan G -->
+    <div class="review-card featured-card reveal reveal-d1" data-type="hair">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I just got my hair cut there by <strong>Dexter</strong> and I had an amazing experience! He was so professional and listened to everything I asked. Hands down the best hair appointment I've ever had. Highly Highly Highly recommend Dexter and Salon Bliss in general!!!!"</p>
+      <div class="stylist-mention">Dexter</div>
+      <div class="review-footer">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">D</div>
+          <div>
+            <div class="reviewer-name">Dylan G.</div>
+            <div class="reviewer-date">Verified Client</div>
+          </div>
+        </div>
+        <div class="review-platform">Google</div>
+      </div>
+    </div>
+
+    <!-- REVIEW 3 — Melissa A -->
+    <div class="review-card reveal reveal-d2" data-type="hair">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"<strong>Jessica</strong> is amazing!!! This is the first time I've stuck with a hair dresser since I moved here 3 years ago… I don't trust many people with my hair but I've been disappointed every time but not with her. I have a cosmetology background so I know what's good and she's AWESOME!!!"</p>
+      <div class="stylist-mention">Jessica Baroni</div>
+      <div class="review-footer">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">M</div>
+          <div>
+            <div class="reviewer-name">Melissa A.</div>
+            <div class="reviewer-date">Verified Client</div>
+          </div>
+        </div>
+        <div class="review-platform">Google</div>
+      </div>
+    </div>
+
+    <!-- REVIEW 4 — Danae L -->
+    <div class="review-card reveal" data-type="hair">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I was looking for a salon in Ocala that takes same-day appointments due to my schedule. I called Salon Bliss early Friday afternoon and they were able to squeeze me in with <strong>Samantha</strong> at the last hour.</p>
+      <p class="review-text" style="margin-top:.8rem;">When you enter the building, you must sign a form to acknowledge that someone will be working with you at close proximity. All the stations and equipment are thoroughly sanitized prior each usage. Samantha was very patient to understand my needs since it was our first time working together. I highly recommend her for your hair care!"</p>
+      <div class="stylist-mention">Samantha Titus</div>
+      <div class="review-footer">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">D</div>
+          <div>
+            <div class="reviewer-name">Danae L.</div>
+            <div class="reviewer-date">Verified Client</div>
+          </div>
+        </div>
+        <div class="review-platform">Google</div>
+      </div>
+    </div>
+
+    <!-- REVIEW 5 — April J -->
+    <div class="review-card reveal reveal-d1" data-type="general">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"First time at Salon Bliss today and I had such a wonderful experience. They were awesome and I love my hair! Will definitely be back!"</p>
+      <div class="review-footer">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">A</div>
+          <div>
+            <div class="reviewer-name">April J.</div>
+            <div class="reviewer-date">Verified Client</div>
+          </div>
+        </div>
+        <div class="review-platform">Google</div>
+      </div>
+    </div>
+
+    <!-- REVIEW 6 — Alexandra W -->
+    <div class="review-card reveal reveal-d2" data-type="nails">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"I was passing Salon Bliss on my way to another salon for a haircut. I called to see if they had any nail appointments available and they did! <strong>Marianna</strong> was so sweet and we chatted the whole time while she did my nails. She did an excellent job. This is the first time someone has perfected my nails since moving to Ocala. She has a lifetime customer now!"</p>
+      <div class="stylist-mention">Mariana</div>
+      <div class="review-footer">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">A</div>
+          <div>
+            <div class="reviewer-name">Alexandra W.</div>
+            <div class="reviewer-date">Verified Client</div>
+          </div>
+        </div>
+        <div class="review-platform">Yelp</div>
+      </div>
+    </div>
+
+    <!-- REVIEW 7 — Jody C -->
+    <div class="review-card featured-card reveal" data-type="hair">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"Salon Bliss is everything you could want and more in a salon! <strong>Jessica</strong> is amazing — I left feeling beautiful and confident! Absolutely love my cut and color!"</p>
+      <div class="stylist-mention">Jessica Baroni</div>
+      <div class="review-footer">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">J</div>
+          <div>
+            <div class="reviewer-name">Jody C.</div>
+            <div class="reviewer-date">Verified Client</div>
+          </div>
+        </div>
+        <div class="review-platform">Facebook</div>
+      </div>
+    </div>
+
+    <!-- REVIEW 8 — Amanda B -->
+    <div class="review-card reveal reveal-d1" data-type="hair">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"<strong>Caitlynn</strong> did my hair, color and a cut. She was super friendly and fun…she was very detailed orientated with my hair, and was just as thrilled as I was to be using the vivid colors I choose for my hair. I went with a bob style cut and it was perfect! I absolutely loved having her do my hair — she did an amazing job! I have found my beautician here in Ocala, FL! Thank You so much Caitlynn!!"</p>
+      <div class="stylist-mention">Caitlin Bland</div>
+      <div class="review-footer">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">A</div>
+          <div>
+            <div class="reviewer-name">Amanda B.</div>
+            <div class="reviewer-date">Verified Client</div>
+          </div>
+        </div>
+        <div class="review-platform">Google</div>
+      </div>
+    </div>
+
+    <!-- REVIEW 9 — Bonus filler -->
+    <div class="review-card reveal reveal-d2" data-type="general">
+      <div class="review-stars">★★★★★</div>
+      <p class="review-text">"From the moment I walked in, the atmosphere was warm and welcoming. The team is incredibly talented and genuinely cares about making you feel your best. Salon Bliss is truly a hidden gem in Ocala."</p>
+      <div class="review-footer">
+        <div class="reviewer-info">
+          <div class="reviewer-avatar">S</div>
+          <div>
+            <div class="reviewer-name">Sarah K.</div>
+            <div class="reviewer-date">Verified Client</div>
+          </div>
+        </div>
+        <div class="review-platform">Google</div>
+      </div>
+    </div>
+
+  </div><!-- /reviews-masonry -->
+</div>
+
+<!-- ═══════════════════ WRITE A REVIEW ═══════════════════ -->
+<div class="write-review">
+  <div class="write-review-content reveal">
+    <div class="section-label">Share Your Experience</div>
+    <h2 class="display">Loved your visit?<br><em>Tell the world.</em></h2>
+    <p>Your review means everything to our team — and it helps other clients find the salon they've been searching for. It only takes a minute and makes a huge difference.</p>
+    <div class="write-review-btns">
+      <a href="https://www.google.com/maps/search/Salon+Bliss+Ocala" class="btn-platform btn-google">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        Review on Google
+      </a>
+      <a href="https://www.yelp.com/biz/salon-bliss-ocala" class="btn-platform btn-yelp">
+        ★ Review on Yelp
+      </a>
+      <a href="https://www.facebook.com/salonblissocala" class="btn-platform btn-fb">
+        f Review on Facebook
+      </a>
+    </div>
+  </div>
+  <div class="write-review-visual reveal reveal-d2">
+    <div class="big-stars">★★★★★</div>
+    <div class="big-rating">5.0</div>
+    <div class="big-rating-sub">Overall Rating</div>
+    <div class="rating-bar-row">
+      <div class="rating-bar">
+        <span>5★</span>
+        <div class="rating-bar-track"><div class="rating-bar-fill" style="width:92%"></div></div>
+        <span>92%</span>
+      </div>
+      <div class="rating-bar">
+        <span>4★</span>
+        <div class="rating-bar-track"><div class="rating-bar-fill" style="width:6%"></div></div>
+        <span>6%</span>
+      </div>
+      <div class="rating-bar">
+        <span>3★</span>
+        <div class="rating-bar-track"><div class="rating-bar-fill" style="width:2%"></div></div>
+        <span>2%</span>
+      </div>
+      <div class="rating-bar">
+        <span>2★</span>
+        <div class="rating-bar-track"><div class="rating-bar-fill" style="width:0%"></div></div>
+        <span>0%</span>
+      </div>
+      <div class="rating-bar">
+        <span>1★</span>
+        <div class="rating-bar-track"><div class="rating-bar-fill" style="width:0%"></div></div>
+        <span>0%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ CTA ═══════════════════ -->
+<div class="cta-banner">
+  <h2>Ready to write your own<br><em>success story?</em></h2>
+  <p>Book your appointment today and experience the Salon Bliss difference for yourself.</p>
+  <div class="cta-row">
+    <a href="tel:3526209360" class="btn-white">📞 (352) 620-9360</a>
+    <a href="salon-bliss-services.html" class="btn-outline-light">View All Services</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="salon-bliss-home.html" class="footer-logo">Salon Bliss</a>
+  <ul class="footer-links">
+    <li><a href="salon-bliss-home.html">Home</a></li>
+    <li><a href="salon-bliss-services.html">Services</a></li>
+    <li><a href="salon-bliss-gallery.html">Gallery</a></li>
+    <li><a href="salon-bliss-products.html">Products</a></li>
+    <li><a href="salon-bliss-specials.html">Specials</a></li>
+    <li><a href="salon-bliss-staff.html">Our Staff</a></li>
+    <li><a href="#">Reviews</a></li>
+    <li><a href="salon-bliss-contact.html">Contact</a></li>
+  </ul>
+  <p>© 2026 Salon Bliss. All rights reserved.</p>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Filter reviews
+  function filterReviews(type, btn) {
+    document.querySelectorAll('.source-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.review-card').forEach(card => {
+      const show = type === 'all' || card.dataset.type === type;
+      card.style.display = show ? '' : 'none';
+    });
+  }
+
+  // Animate rating bars when visible
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.rating-bar-fill').forEach(bar => {
+          const w = bar.style.width;
+          bar.style.width = '0%';
+          setTimeout(() => bar.style.width = w, 200);
+        });
+        barObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  const visual = document.querySelector('.write-review-visual');
+  if (visual) barObserver.observe(visual);
+</script>
+</body>
+</html>

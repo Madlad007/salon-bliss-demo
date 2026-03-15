@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Services — Salon Bliss | Ocala, FL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #faf8f5;
+    --blush: #f0d9d0;
+    --blush-dark: #e8c8bc;
+    --mauve: #c4919e;
+    --deep: #8b4f6b;
+    --gold: #c9a96e;
+    --text: #1a1a1a;
+    --muted: #6b5b58;
+    --border: rgba(0,0,0,.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: rgba(250,248,245,.92);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 1px 0 rgba(0,0,0,.06);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600; letter-spacing: .05em;
+    color: var(--deep); text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: .78rem; font-weight: 500; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--muted);
+    text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover, .nav-links a.active { color: var(--deep); }
+  .nav-cta {
+    background: var(--deep); color: var(--white) !important;
+    padding: .55rem 1.4rem; border-radius: 2rem;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+
+  /* ── PAGE HERO ── */
+  .page-hero {
+    padding-top: 90px;
+    background: var(--black);
+    position: relative; overflow: hidden;
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 460px;
+  }
+  .page-hero-content {
+    padding: 5rem 3rem 5rem 3rem;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; z-index: 2;
+  }
+  .page-hero-bg {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(139,79,107,.35) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .breadcrumb {
+    display: flex; align-items: center; gap: .5rem;
+    font-size: .7rem; letter-spacing: .16em; text-transform: uppercase;
+    color: rgba(255,255,255,.4); margin-bottom: 1.6rem;
+  }
+  .breadcrumb a { color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s; }
+  .breadcrumb a:hover { color: var(--gold); }
+  .breadcrumb span { color: var(--gold); }
+  .page-hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.8rem, 5vw, 5rem); font-weight: 300;
+    line-height: 1.1; color: var(--white); letter-spacing: -.01em;
+    animation: fadeUp .9s .2s both;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--mauve); }
+  .page-hero-sub {
+    margin-top: 1.4rem; max-width: 420px;
+    font-size: .97rem; color: rgba(255,255,255,.55); line-height: 1.7;
+    animation: fadeUp .9s .4s both;
+  }
+  .page-hero-actions {
+    margin-top: 2.2rem; display: flex; gap: 1.2rem; align-items: center;
+    animation: fadeUp .9s .6s both;
+  }
+  .page-hero-image {
+    position: relative; overflow: hidden;
+  }
+  .page-hero-image img {
+    width: 100%; height: 100%; object-fit: cover; opacity: .55;
+    transform: scale(1.06);
+    animation: heroZoom 12s ease-out forwards;
+  }
+  .page-hero-image::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to right, var(--black) 0%, transparent 40%);
+  }
+  @keyframes heroZoom { to { transform: scale(1); } }
+
+  /* ── FILTER TABS ── */
+  .filter-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 76px; z-index: 50;
+    padding: 0 3rem;
+  }
+  .filter-inner {
+    display: flex; align-items: center; gap: 0;
+    max-width: 1200px; margin: 0 auto;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .filter-inner::-webkit-scrollbar { display: none; }
+  .filter-btn {
+    flex-shrink: 0;
+    padding: 1.1rem 1.6rem;
+    font-size: .75rem; font-weight: 500; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted);
+    background: none; border: none; border-bottom: 2px solid transparent;
+    cursor: pointer; transition: color .2s, border-color .2s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover { color: var(--deep); }
+  .filter-btn.active { color: var(--deep); border-bottom-color: var(--deep); }
+
+  /* ── SECTION SHARED ── */
+  .section-label {
+    display: inline-flex; align-items: center; gap: .7rem;
+    font-size: .7rem; font-weight: 600; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--mauve); margin-bottom: .8rem;
+  }
+  .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--mauve); }
+  h2.display {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 300; line-height: 1.15;
+  }
+  h2.display em { font-style: italic; color: var(--deep); }
+
+  /* ── SERVICE CATEGORY ── */
+  .service-category {
+    padding: 7rem 3rem;
+    max-width: 1200px; margin: 0 auto;
+  }
+  .category-header {
+    display: grid; grid-template-columns: 1fr auto;
+    align-items: flex-end; margin-bottom: 3.5rem;
+    padding-bottom: 2.5rem; border-bottom: 1px solid var(--border);
+  }
+  .category-header .call-link {
+    font-size: .78rem; letter-spacing: .08em; color: var(--muted);
+    text-decoration: none; transition: color .2s;
+  }
+  .category-header .call-link:hover { color: var(--deep); }
+
+  /* ── HAIR SERVICES ── */
+  .hair-section { background: var(--white); }
+  .services-columns {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+    align-items: start;
+  }
+  .services-image-block { position: relative; }
+  .services-image-block img {
+    width: 100%; aspect-ratio: 3/4; object-fit: cover;
+    border-radius: 3px;
+  }
+  .services-image-tag {
+    position: absolute; bottom: -1.5rem; right: -1.5rem;
+    background: var(--deep); color: var(--white);
+    font-size: .7rem; font-weight: 600; letter-spacing: .14em;
+    text-transform: uppercase; padding: 1rem 1.4rem;
+    border-radius: 2px;
+  }
+  .menu-list { list-style: none; }
+  .menu-item {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+    transition: background .2s;
+  }
+  .menu-item:first-child { border-top: 1px solid var(--border); }
+  .menu-item-left { flex: 1; }
+  .menu-item-name {
+    font-size: 1rem; font-weight: 500; color: var(--text);
+    display: block; margin-bottom: .25rem;
+  }
+  .menu-item-desc {
+    font-size: .82rem; color: var(--muted); line-height: 1.5;
+  }
+  .menu-item-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 600; color: var(--deep);
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .menu-item-price.consult {
+    font-family: 'Outfit', sans-serif;
+    font-size: .72rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--gold);
+    background: rgba(201,169,110,.1); padding: .3rem .7rem; border-radius: 2rem;
+  }
+
+  /* ── FEATURED CATEGORIES (dark) ── */
+  .featured-dark {
+    background: var(--black);
+    padding: 7rem 3rem;
+  }
+  .featured-dark .section-label { color: var(--gold); }
+  .featured-dark .section-label::before { background: var(--gold); }
+  .featured-dark h2.display { color: var(--white); }
+  .featured-dark h2.display em { color: var(--mauve); }
+
+  /* Nail cards */
+  .nail-cards {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px; background: rgba(255,255,255,.04);
+    margin-top: 3.5rem;
+  }
+  .nail-card {
+    background: var(--black); overflow: hidden;
+    position: relative; cursor: default;
+    transition: background .3s;
+  }
+  .nail-card:hover { background: #141414; }
+  .nail-card-img {
+    width: 100%; aspect-ratio: 4/3; object-fit: cover;
+    display: block; opacity: .7; transition: opacity .4s, transform .5s;
+  }
+  .nail-card:hover .nail-card-img { opacity: .9; transform: scale(1.03); }
+  .nail-card-body { padding: 2rem 2rem 2.5rem; }
+  .nail-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 400; color: var(--white);
+    margin-bottom: .6rem;
+  }
+  .nail-card p { font-size: .85rem; color: rgba(255,255,255,.45); line-height: 1.65; }
+  .nail-card-menu {
+    margin-top: 1.4rem; list-style: none;
+  }
+  .nail-card-menu li {
+    display: flex; justify-content: space-between;
+    padding: .6rem 0; border-bottom: 1px solid rgba(255,255,255,.06);
+    font-size: .84rem; color: rgba(255,255,255,.6);
+  }
+  .nail-card-menu li span { color: var(--gold); font-weight: 500; }
+
+  /* ── SPRAY TAN ── */
+  .spray-section {
+    display: grid; grid-template-columns: 1fr 1fr;
+    min-height: 500px; overflow: hidden;
+  }
+  .spray-content {
+    background: var(--blush); padding: 6rem 4rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .spray-content .section-label { color: var(--deep); }
+  .spray-content .section-label::before { background: var(--deep); }
+  .spray-image {
+    background:
+      url('https://d14tal8bchn59o.cloudfront.net/j2lF9u-k_0XNP7MM5WV_AM6gQK24Ko_0mMUQn8ZpTkI/rs:fill:960:640:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/22447977/dark_blue_and_yellow_modern_menu_landscape_original.PNG')
+      center/cover no-repeat;
+  }
+  .spray-tiers {
+    margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;
+  }
+  .spray-tier {
+    background: var(--white); border-radius: 3px;
+    padding: 1.3rem 1.6rem;
+    display: flex; align-items: center; justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+    transition: transform .2s;
+  }
+  .spray-tier:hover { transform: translateX(4px); }
+  .spray-tier h4 { font-size: .95rem; font-weight: 600; color: var(--text); }
+  .spray-tier p { font-size: .8rem; color: var(--muted); margin-top: .2rem; }
+  .spray-tier .price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 300; color: var(--deep); white-space: nowrap;
+  }
+
+  /* ── BRIDAL ── */
+  .bridal-section { padding: 7rem 3rem; background: var(--white); }
+  .bridal-inner { max-width: 1200px; margin: 0 auto; }
+  .bridal-grid {
+    margin-top: 3.5rem;
+    display: grid; grid-template-columns: 1.1fr 1fr;
+    gap: 4rem; align-items: center;
+  }
+  .bridal-packages { display: flex; flex-direction: column; gap: 1.2rem; }
+  .bridal-package {
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 2rem 2rem;
+    position: relative; overflow: hidden;
+    transition: border-color .25s, box-shadow .25s;
+  }
+  .bridal-package:hover {
+    border-color: var(--mauve);
+    box-shadow: 0 8px 32px rgba(196,145,158,.12);
+  }
+  .bridal-package.featured {
+    border-color: var(--deep);
+    background: linear-gradient(135deg, rgba(139,79,107,.03) 0%, transparent 100%);
+  }
+  .bridal-package-badge {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    background: var(--deep); color: var(--white);
+    font-size: .6rem; font-weight: 700; letter-spacing: .14em;
+    text-transform: uppercase; padding: .25rem .7rem; border-radius: 2rem;
+  }
+  .bridal-package h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 400; color: var(--text);
+  }
+  .bridal-package .includes {
+    margin-top: .8rem; font-size: .83rem; color: var(--muted); line-height: 1.65;
+  }
+  .bridal-package .includes strong { color: var(--text); }
+  .bridal-package .pkg-price {
+    margin-top: 1.2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; font-weight: 300; color: var(--deep);
+  }
+  .bridal-image-block { position: relative; }
+  .bridal-image-block img {
+    width: 100%; aspect-ratio: 3/4; object-fit: cover; border-radius: 3px;
+  }
+  .bridal-note {
+    position: absolute; bottom: 2rem; left: -2rem;
+    background: var(--gold); color: var(--black);
+    padding: 1.2rem 1.6rem; border-radius: 3px;
+    font-size: .78rem; font-weight: 600; max-width: 200px; line-height: 1.5;
+    box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  }
+
+  /* ── EXTRA SERVICES ── */
+  .extras-section {
+    background: var(--blush); padding: 6rem 3rem;
+  }
+  .extras-inner { max-width: 1200px; margin: 0 auto; }
+  .extras-grid {
+    margin-top: 3rem;
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;
+  }
+  .extra-card {
+    background: var(--white); border-radius: 4px;
+    padding: 2.2rem 1.8rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,.05);
+    transition: transform .25s, box-shadow .25s;
+  }
+  .extra-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,.09); }
+  .extra-icon { font-size: 2rem; margin-bottom: 1.2rem; display: block; }
+  .extra-card h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: .5rem; }
+  .extra-card p { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: var(--deep);
+    padding: 5rem 3rem; text-align: center;
+  }
+  .cta-banner h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3.4rem); font-weight: 300;
+    color: var(--white); margin-bottom: .8rem;
+  }
+  .cta-banner h2 em { font-style: italic; color: var(--blush); }
+  .cta-banner p { color: rgba(255,255,255,.6); font-size: .95rem; margin-bottom: 2.5rem; }
+  .cta-row { display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: var(--white); color: var(--deep);
+    padding: .95rem 2.4rem; border-radius: 2rem;
+    font-size: .85rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+    text-decoration: none; transition: background .3s, transform .2s;
+  }
+  .btn-primary:hover { background: var(--gold); color: var(--black); transform: translateY(-2px); }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: .6rem;
+    border: 1.5px solid rgba(255,255,255,.35); color: var(--white);
+    padding: .95rem 2.4rem; border-radius: 2rem;
+    font-size: .85rem; font-weight: 500; letter-spacing: .06em; text-transform: uppercase;
+    text-decoration: none; transition: border-color .3s, background .3s;
+  }
+  .btn-outline:hover { border-color: var(--white); background: rgba(255,255,255,.08); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black); color: rgba(255,255,255,.4);
+    padding: 2.5rem 3rem;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
+    color: var(--white); font-weight: 400; letter-spacing: .06em; text-decoration: none;
+  }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+  .footer-links a {
+    font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(255,255,255,.35); text-decoration: none; transition: color .2s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .85s cubic-bezier(.25,.46,.45,.94), transform .85s cubic-bezier(.25,.46,.45,.94);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: .12s; }
+  .reveal-delay-2 { transition-delay: .24s; }
+  .reveal-delay-3 { transition-delay: .36s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .page-hero { grid-template-columns: 1fr; }
+    .page-hero-image { display: none; }
+    .page-hero-content { padding: 4rem 1.5rem; }
+    .service-category { padding: 4rem 1.5rem; }
+    .services-columns { grid-template-columns: 1fr; }
+    .services-image-block { display: none; }
+    .nail-cards { grid-template-columns: 1fr; }
+    .spray-section { grid-template-columns: 1fr; }
+    .spray-image { min-height: 280px; order: -1; }
+    .spray-content { padding: 4rem 1.5rem; }
+    .bridal-grid { grid-template-columns: 1fr; }
+    .bridal-image-block { display: none; }
+    .extras-grid { grid-template-columns: 1fr 1fr; }
+    .featured-dark { padding: 5rem 1.5rem; }
+    .filter-bar { padding: 0 1.5rem; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+  @media (max-width: 560px) {
+    .extras-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="salon-bliss-home.html" class="nav-logo">Salon Bliss</a>
+  <ul class="nav-links">
+    <li><a href="salon-bliss-home.html">Home</a></li>
+    <li><a href="salon-bliss-services.html" class="active">Services</a></li>
+    <li><a href="salon-bliss-gallery.html">Gallery</a></li>
+    <li><a href="salon-bliss-specials.html">Specials</a></li>
+    <li><a href="salon-bliss-staff.html">Our Staff</a></li>
+    <li><a href="salon-bliss-contact.html">Contact</a></li>
+    <li><a href="tel:3526209360" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-content">
+    <div class="breadcrumb">
+      <a href="salon-bliss-home.html">Home</a> › <span>Our Services</span>
+    </div>
+    <h1>Our <em>Services</em></h1>
+    <p class="page-hero-sub">From precision cuts to vibrant color, flawless nails, and restorative scalp therapy — every service is a craft.</p>
+    <div class="page-hero-actions">
+      <a href="tel:3526209360" class="btn-primary" style="background:var(--mauve); color:var(--white);">📞 Call to Book</a>
+      <a href="#hair" class="btn-outline">Explore Services ↓</a>
+    </div>
+  </div>
+  <div class="page-hero-image">
+    <img src="https://d14tal8bchn59o.cloudfront.net/nmEVcV3XmMyZlMQX6fh0QzoRDiNkRjNKppEGaY7us6o/rs:fill:960:640:1/plain/https%3A%2F%2F02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com%2Fsites%2F5460%2Fphotos%2F22534487%2FWomen%25E2%2580%2599s_cut_original.png" alt="Women's Cut">
+  </div>
+</div>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <div class="filter-inner">
+    <button class="filter-btn active" onclick="filterScroll('hair')">Hair Services</button>
+    <button class="filter-btn" onclick="filterScroll('nails')">Nails</button>
+    <button class="filter-btn" onclick="filterScroll('tan')">Spray Tan</button>
+    <button class="filter-btn" onclick="filterScroll('bridal')">Bridal</button>
+    <button class="filter-btn" onclick="filterScroll('extras')">More Services</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ HAIR SERVICES ═══════════════════════════════ -->
+<div id="hair">
+  <div class="service-category hair-section">
+    <div class="category-header reveal">
+      <div>
+        <div class="section-label">Hair</div>
+        <h2 class="display">Cuts, Color &amp; <em>Transformations</em></h2>
+      </div>
+      <a href="tel:3526209360" class="call-link">Questions? Call us →</a>
+    </div>
+
+    <!-- Women's Cuts -->
+    <div class="services-columns" style="margin-bottom: 5rem;">
+      <div class="services-image-block reveal">
+        <img src="https://d14tal8bchn59o.cloudfront.net/nmEVcV3XmMyZlMQX6fh0QzoRDiNkRjNKppEGaY7us6o/rs:fill:960:640:1/plain/https%3A%2F%2F02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com%2Fsites%2F5460%2Fphotos%2F22534487%2FWomen%25E2%2580%2599s_cut_original.png" alt="Women's Cuts">
+        <div class="services-image-tag">Cuts &amp; Styling</div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:400; margin-bottom:1.8rem; color:var(--text);">Women's Cut &amp; Style</h3>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Cut &amp; Blowdry</span>
+              <span class="menu-item-desc">Shampoo, precision cut, blowdry &amp; style</span>
+            </div>
+            <div class="menu-item-price">$55+</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Cut Only</span>
+              <span class="menu-item-desc">Precision cut, air dry finish</span>
+            </div>
+            <div class="menu-item-price">$40+</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Bang Trim</span>
+              <span class="menu-item-desc">Quick fringe refresh between appointments</span>
+            </div>
+            <div class="menu-item-price">$15</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Men's Cut</span>
+              <span class="menu-item-desc">Shampoo, cut &amp; blowdry</span>
+            </div>
+            <div class="menu-item-price">$35+</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Children's Cut (under 10)</span>
+              <span class="menu-item-desc">Simple cut and style</span>
+            </div>
+            <div class="menu-item-price">$25+</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Color Services -->
+    <div class="services-columns" style="margin-bottom: 5rem; direction: rtl;">
+      <div class="services-image-block reveal" style="direction:ltr;">
+        <img src="https://d14tal8bchn59o.cloudfront.net/ZxkNaBhZORfkOadWI-B9FKMZ8_oBLjHjfA-7YupwGZc/rs:fit:960:435:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2245921/159171626_4149825635079955_2931949021400808424_n_original.jpg" alt="Hair Color">
+        <div class="services-image-tag">Color Artistry</div>
+      </div>
+      <div class="reveal reveal-delay-1" style="direction:ltr;">
+        <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:400; margin-bottom:1.8rem; color:var(--text);">Hair Color</h3>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Single Process Color</span>
+              <span class="menu-item-desc">All-over shade, root touch-up or full coverage</span>
+            </div>
+            <div class="menu-item-price">$75+</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Partial Highlights</span>
+              <span class="menu-item-desc">Face-framing or crown highlights</span>
+            </div>
+            <div class="menu-item-price">$90+</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Full Highlights</span>
+              <span class="menu-item-desc">Full head of foil highlights</span>
+            </div>
+            <div class="menu-item-price">$130+</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Balayage / Ombré</span>
+              <span class="menu-item-desc">Hand-painted, sun-kissed dimension</span>
+            </div>
+            <div class="menu-item-price">$160+</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Color Correction</span>
+              <span class="menu-item-desc">Complex color corrections — consultation required</span>
+            </div>
+            <div class="menu-item-price consult">Consult</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Treatments & Extensions -->
+    <div class="services-columns">
+      <div class="services-image-block reveal">
+        <img src="https://d14tal8bchn59o.cloudfront.net/1Q5K_d1paP2IOgyFUJM9ANj2jxQFJhsZ0feVS-D8kuc/rs:fit:960:435:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2245925/271308042_5091864734209369_5620103455417672961_n_original.jpg" alt="Hair Treatments">
+        <div class="services-image-tag">Treatments</div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; font-weight:400; margin-bottom:1.8rem; color:var(--text);">Treatments &amp; Extensions</h3>
+        <ul class="menu-list">
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Keratin Smoothing Treatment</span>
+              <span class="menu-item-desc">Reduces frizz, adds shine &amp; manageability for months</span>
+            </div>
+            <div class="menu-item-price consult">Consult</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Deep Conditioning Treatment</span>
+              <span class="menu-item-desc">Intensive moisture &amp; repair mask</span>
+            </div>
+            <div class="menu-item-price">$30+</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Perms</span>
+              <span class="menu-item-desc">Classic or beach wave texture</span>
+            </div>
+            <div class="menu-item-price consult">Consult</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Hair Extensions</span>
+              <span class="menu-item-desc">Length &amp; volume — tape-in, fusion, or weft</span>
+            </div>
+            <div class="menu-item-price consult">Consult</div>
+          </li>
+          <li class="menu-item">
+            <div class="menu-item-left">
+              <span class="menu-item-name">Luxe Blowout</span>
+              <span class="menu-item-desc">Tailored blowdry with sugar crystals &amp; rice protein</span>
+            </div>
+            <div class="menu-item-price">$20+</div>
+          </li>
+        </ul>
+        <p style="margin-top:1.4rem; font-size:.78rem; color:var(--muted);">* Prices vary by hair length &amp; density. Consultation recommended for complex services.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ NAIL SERVICES ═══════════════════════════════ -->
+<div id="nails" class="featured-dark">
+  <div style="max-width:1200px; margin:0 auto;">
+    <div class="reveal">
+      <div class="section-label">Nail Services</div>
+      <h2 class="display">Artistry at your <em>fingertips</em></h2>
+    </div>
+    <div class="nail-cards">
+
+      <div class="nail-card reveal">
+        <img class="nail-card-img"
+          src="https://d14tal8bchn59o.cloudfront.net/Ez1fC-MaRVCycclIHH0hz0DEayLVV7xRJHVpI643UYY/rs:fill:960:640:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/22471332/Nails_By_Emily_original.png"
+          alt="Nails by Emily">
+        <div class="nail-card-body">
+          <h3>Nails By Emily</h3>
+          <p>Bold, beautiful nail art and flawless manicures — Emily brings creative flair and precision to every set.</p>
+          <ul class="nail-card-menu">
+            <li>Classic Manicure <span>$30+</span></li>
+            <li>Gel Manicure <span>$45+</span></li>
+            <li>Nail Art / Designs <span>$55+</span></li>
+            <li>Full Set Acrylics <span>$60+</span></li>
+            <li>Pedicure <span>$45+</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nail-card reveal reveal-delay-1">
+        <img class="nail-card-img"
+          src="https://d14tal8bchn59o.cloudfront.net/4jn_hJF1Ll5lZxgvFXZ78ZTcpPP7lGHJNdeNjP45ww0/rs:fill:960:640:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/22448032/European_Nails_original.png"
+          alt="European Nails">
+        <div class="nail-card-body">
+          <h3>European Nails by Mariana</h3>
+          <p>Mariana specializes in European nail techniques — refined, natural-looking results with impeccable care for nail health.</p>
+          <ul class="nail-card-menu">
+            <li>European Manicure <span>$40+</span></li>
+            <li>Gel Overlay <span>$50+</span></li>
+            <li>Spa Pedicure <span>$55+</span></li>
+            <li>Nail Strengthening <span>$35+</span></li>
+            <li>Paraffin Treatment <span>+$15</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="nail-card reveal reveal-delay-2" style="background:#0d0d0d; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:3rem 2rem; min-height:400px;">
+        <div style="font-size:2.5rem; margin-bottom:1.4rem;">✨</div>
+        <h3 style="color:var(--white); margin-bottom:.8rem;">Glittery Shades &amp; Daring Designs</h3>
+        <p style="color:rgba(255,255,255,.45); font-size:.87rem; line-height:1.7; margin-bottom:2rem;">From natural buff to bold metallic art — our nail technicians can bring any vision to life.</p>
+        <a href="tel:3526209360" style="display:inline-flex; align-items:center; gap:.5rem; background:var(--mauve); color:var(--white); padding:.8rem 1.8rem; border-radius:2rem; font-size:.8rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; text-decoration:none; transition:background .25s;">Book a Nail Appointment</a>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ SPRAY TAN ═══════════════════════════════ -->
+<div id="tan" class="spray-section">
+  <div class="spray-content">
+    <div class="section-label">Sunless Tanning</div>
+    <h2 class="display">Glow without<br>the <em>sun</em></h2>
+    <p style="margin-top:1.2rem; color:var(--muted); font-size:.92rem; line-height:1.75;">Our professional spray tan services give you a natural, even bronze glow tailored to your skin tone — without harmful UV exposure. Fast, flawless, and fade-friendly.</p>
+    <div class="spray-tiers">
+      <div class="spray-tier">
+        <div>
+          <h4>Express Tan</h4>
+          <p>1-hour development, quick &amp; convenient</p>
+        </div>
+        <div class="price">$35</div>
+      </div>
+      <div class="spray-tier">
+        <div>
+          <h4>Classic Tan</h4>
+          <p>8-hour development, deep natural bronze</p>
+        </div>
+        <div class="price">$45</div>
+      </div>
+      <div class="spray-tier">
+        <div>
+          <h4>Luxury Full Body</h4>
+          <p>Premium solution + overnight development</p>
+        </div>
+        <div class="price">$60</div>
+      </div>
+    </div>
+  </div>
+  <div class="spray-image"></div>
+</div>
+
+<!-- ═══════════════════════════════ BRIDAL ═══════════════════════════════ -->
+<div id="bridal" class="bridal-section">
+  <div class="bridal-inner">
+    <div class="reveal">
+      <div class="section-label">Bridal &amp; Events</div>
+      <h2 class="display">Look breathtaking<br>on your <em>special day</em></h2>
+    </div>
+    <div class="bridal-grid">
+      <div class="bridal-packages reveal">
+        <div class="bridal-package">
+          <h3>Bridal Preview</h3>
+          <p class="includes">A trial run before the big day — <strong>hair styling consultation + trial set</strong> to nail your perfect bridal look.</p>
+          <div class="pkg-price">From $120</div>
+        </div>
+        <div class="bridal-package featured">
+          <div class="bridal-package-badge">Most Popular</div>
+          <h3>Full Bridal Package</h3>
+          <p class="includes">The complete experience: <strong>hair, nails &amp; makeup</strong> for the bride. A dedicated stylist from start to finish on your wedding day.</p>
+          <div class="pkg-price">From $350</div>
+        </div>
+        <div class="bridal-package">
+          <h3>Bridal Party Package</h3>
+          <p class="includes">Hair, nails &amp; makeup for the <strong>full bridal party</strong>. We assemble our entire team so everyone is ready on time — custom pricing based on party size.</p>
+          <div class="pkg-price consult" style="font-family:'Outfit',sans-serif; font-size:.82rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--gold); background:rgba(201,169,110,.1); display:inline-block; padding:.4rem .9rem; border-radius:2rem; margin-top:1rem;">Custom Quote</div>
+        </div>
+        <p style="font-size:.8rem; color:var(--muted); margin-top:.5rem;">Advance booking required. Call us for availability and custom quotes.</p>
+      </div>
+      <div class="bridal-image-block reveal reveal-delay-2">
+        <img src="https://d14tal8bchn59o.cloudfront.net/bY3a_CqLVHv2m7aI9BsN5xwZUAHfggLPkhU9tKLV-zA/rs:fill:960:640:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/22447997/Hai_ranMAKEUP_original.png" alt="Bridal Hair and Makeup">
+        <div class="bridal-note">Booking early is recommended — our bridal calendar fills fast!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════ EXTRA SERVICES ═══════════════════════════════ -->
+<div id="extras" class="extras-section">
+  <div class="extras-inner">
+    <div class="reveal">
+      <div class="section-label">Also at Salon Bliss</div>
+      <h2 class="display">More ways to <em>indulge</em></h2>
+    </div>
+    <div class="extras-grid">
+      <div class="extra-card reveal">
+        <span class="extra-icon">🌿</span>
+        <h3>Scalp Therapy</h3>
+        <p>Red light therapy, scalp massage, and deep conditioning treatments for hair health, relaxation, and growth.</p>
+      </div>
+      <div class="extra-card reveal reveal-delay-1">
+        <span class="extra-icon">✏️</span>
+        <h3>Microblading</h3>
+        <p>Perfectly shaped, natural-looking brows using semi-permanent pigment — wake up with flawless brows every day.</p>
+      </div>
+      <div class="extra-card reveal reveal-delay-2">
+        <span class="extra-icon">🦷</span>
+        <h3>Teeth Whitening</h3>
+        <p>Professional-grade whitening treatment for a brighter, more confident smile — fast results in one session.</p>
+      </div>
+      <div class="extra-card reveal reveal-delay-3">
+        <span class="extra-icon">🎁</span>
+        <h3>Gift Certificates</h3>
+        <p>Treat someone special to the Salon Bliss experience. Gift cards available in any amount — the gift they'll love.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BANNER -->
+<div class="cta-banner">
+  <h2>Ready to feel <em>amazing?</em></h2>
+  <p>Simply give us a call — we'd love to welcome you into the salon.</p>
+  <div class="cta-row">
+    <a href="tel:3526209360" class="btn-primary">📞 (352) 620-9360</a>
+    <a href="https://maps.google.com/maps?q=104+SE+1st+AVE+Suite+D,+Ocala,+FL+34471" class="btn-outline">📍 Get Directions</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <a href="salon-bliss-home.html" class="footer-logo">Salon Bliss</a>
+  <ul class="footer-links">
+    <li><a href="salon-bliss-home.html">Home</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="salon-bliss-gallery.html">Gallery</a></li>
+    <li><a href="salon-bliss-products.html">Products</a></li>
+    <li><a href="salon-bliss-specials.html">Specials</a></li>
+    <li><a href="salon-bliss-staff.html">Our Staff</a></li>
+    <li><a href="salon-bliss-reviews.html">Reviews</a></li>
+    <li><a href="salon-bliss-contact.html">Contact</a></li>
+  </ul>
+  <p>© 2026 Salon Bliss. All rights reserved.</p>
+</footer>
+
+<script>
+  // Smooth filter scroll
+  function filterScroll(id) {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+  }
+
+  // Update active filter on scroll
+  const sections = ['hair','nails','tan','bridal','extras'];
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const idx = sections.indexOf(e.target.id);
+        if (idx > -1) {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          filterBtns[idx]?.classList.add('active');
+        }
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); revealObserver.unobserve(e.target); }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => revealObserver.observe(el));
+</script>
+</body>
+</html>

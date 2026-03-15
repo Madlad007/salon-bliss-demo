@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Salon Bliss — Hair & Nail Salon, Ocala FL</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --white: #faf8f5;
+    --blush: #f0d9d0;
+    --mauve: #c4919e;
+    --deep: #8b4f6b;
+    --gold: #c9a96e;
+    --text: #1a1a1a;
+    --muted: #6b5b58;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 3rem;
+    background: transparent;
+    transition: background .4s, backdrop-filter .4s;
+  }
+  nav.scrolled {
+    background: rgba(250,248,245,.92);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 1px 0 rgba(0,0,0,.06);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 600; letter-spacing: .05em;
+    color: var(--white); text-decoration: none;
+    transition: color .3s;
+  }
+  nav.scrolled .nav-logo { color: var(--deep); }
+
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    font-size: .8rem; font-weight: 500; letter-spacing: .12em;
+    text-transform: uppercase; color: rgba(255,255,255,.85);
+    text-decoration: none; transition: color .3s;
+  }
+  nav.scrolled .nav-links a { color: var(--muted); }
+  .nav-links a:hover { color: var(--gold) !important; }
+
+  .nav-cta {
+    font-size: .75rem; font-weight: 600; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--white) !important;
+    background: var(--deep); padding: .55rem 1.4rem;
+    border-radius: 2rem; text-decoration: none; transition: background .3s, color .3s;
+  }
+  .nav-cta:hover { background: var(--gold) !important; color: var(--black) !important; }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative; height: 100vh; min-height: 680px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    overflow: hidden; background: var(--black);
+  }
+
+  /* Left photo panel */
+  .hero-panel {
+    position: relative; overflow: hidden;
+  }
+  .hero-panel img {
+    width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    display: block;
+    transform: scale(1.08);
+    animation: heroZoom 16s ease-out forwards;
+    transition: filter .6s;
+  }
+  .hero-panel::after {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(to bottom, rgba(10,10,10,.18) 0%, rgba(10,10,10,.55) 100%);
+  }
+  /* Right photo panel — slightly different tint */
+  .hero-panel:nth-child(2) img { animation-delay: .3s; object-position: center 20%; }
+  .hero-panel:nth-child(2)::after {
+    background: linear-gradient(to bottom, rgba(10,10,10,.22) 0%, rgba(10,10,10,.62) 100%);
+  }
+
+  /* Thin gap between panels */
+  .hero-panels {
+    position: absolute; inset: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2px;
+  }
+
+  /* Center divider line */
+  .hero-divider {
+    position: absolute; top: 0; bottom: 0; left: 50%;
+    width: 2px; background: rgba(201,169,110,.45);
+    transform: translateX(-50%); z-index: 4;
+    animation: fadeUp .6s 1s both;
+  }
+  .hero-divider::before {
+    content: '✦';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    color: var(--gold); font-size: .8rem;
+    background: var(--black); padding: .5rem .3rem;
+    line-height: 1;
+  }
+
+  @keyframes heroZoom { to { transform: scale(1); } }
+
+  /* Content overlay */
+  .hero-content {
+    position: absolute; inset: 0; z-index: 5;
+    display: flex; flex-direction: column;
+    align-items: flex-start; justify-content: flex-end;
+    padding: 0 3rem 7rem;
+    max-width: 720px;
+    pointer-events: none;
+  }
+  .hero-content > * { pointer-events: auto; }
+
+  /* Subtle vignette for text legibility */
+  .hero::before {
+    content: ''; position: absolute; inset: 0; z-index: 3;
+    background:
+      linear-gradient(to right, rgba(10,10,10,.72) 0%, rgba(10,10,10,.25) 55%, rgba(10,10,10,.0) 100%),
+      linear-gradient(to top, rgba(10,10,10,.6) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: .7rem;
+    font-size: .72rem; font-weight: 600; letter-spacing: .2em;
+    text-transform: uppercase; color: var(--gold);
+    margin-bottom: 1.2rem;
+    opacity: 0; animation: fadeUp .8s .3s forwards;
+  }
+  .hero-eyebrow::before {
+    content: ''; display: block; width: 32px; height: 1px; background: var(--gold);
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.4rem, 7vw, 6.5rem); font-weight: 300; line-height: 1.05;
+    color: var(--white); letter-spacing: -.01em;
+    opacity: 0; animation: fadeUp .9s .5s forwards;
+  }
+  .hero h1 em { font-style: italic; color: var(--blush); }
+
+  /* Decorative rule under headline */
+  .hero-rule {
+    width: 64px; height: 1px; background: rgba(201,169,110,.6);
+    margin: 1.6rem 0;
+    opacity: 0; animation: fadeUp .8s .65s forwards;
+  }
+
+  .hero-sub {
+    font-size: 1rem; font-weight: 300; color: rgba(255,255,255,.72); line-height: 1.7;
+    max-width: 420px;
+    opacity: 0; animation: fadeUp .9s .7s forwards;
+  }
+  .hero-actions {
+    margin-top: 2.6rem; display: flex; align-items: center; gap: 1.6rem; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp .9s .9s forwards;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: .6rem;
+    background: var(--mauve); color: var(--white);
+    padding: .9rem 2.2rem; border-radius: 2rem;
+    font-size: .85rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    text-decoration: none; transition: background .3s, transform .2s;
+  }
+  .btn-primary:hover { background: var(--deep); transform: translateY(-2px); }
+  .btn-ghost {
+    font-size: .82rem; font-weight: 500; letter-spacing: .05em;
+    color: var(--white); text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,.4);
+    padding-bottom: 2px; transition: border-color .3s, color .3s;
+  }
+  .btn-ghost:hover { color: var(--gold); border-color: var(--gold); }
+
+  /* Bottom-right label badges */
+  .hero-labels {
+    position: absolute; bottom: 3rem; right: 3rem; z-index: 6;
+    display: flex; flex-direction: column; align-items: flex-end; gap: .5rem;
+    opacity: 0; animation: fadeUp .9s 1.1s forwards;
+  }
+  .hero-label-tag {
+    font-size: .62rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+    color: rgba(255,255,255,.5); background: rgba(255,255,255,.07);
+    border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(6px);
+    padding: .3rem .85rem; border-radius: 2rem;
+  }
+
+  /* Scroll indicator */
+  .hero-scroll {
+    position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: .5rem;
+    font-size: .62rem; letter-spacing: .18em; text-transform: uppercase;
+    color: rgba(255,255,255,.4); text-decoration: none; z-index: 6;
+    opacity: 0; animation: fadeUp 1s 1.3s forwards;
+  }
+  .hero-scroll::after {
+    content: ''; display: block; width: 1px; height: 44px;
+    background: linear-gradient(to bottom, rgba(255,255,255,.45), transparent);
+    animation: scrollLine 2s 2s infinite;
+  }
+  @keyframes scrollLine {
+    0%   { transform: scaleY(0); transform-origin: top; }
+    50%  { transform: scaleY(1); transform-origin: top; }
+    51%  { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── TICKER ── */
+  .ticker {
+    background: var(--deep); color: var(--white);
+    padding: .85rem 0; overflow: hidden; white-space: nowrap;
+  }
+  .ticker-inner {
+    display: inline-flex; gap: 0;
+    animation: ticker 28s linear infinite;
+  }
+  .ticker-item {
+    display: inline-flex; align-items: center; gap: 1.2rem;
+    font-size: .72rem; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+    padding-right: 3.5rem;
+  }
+  .ticker-dot { display: inline-block; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* ── SECTION SHARED ── */
+  section { padding: 7rem 3rem; }
+  .section-label {
+    display: inline-flex; align-items: center; gap: .7rem;
+    font-size: .7rem; font-weight: 600; letter-spacing: .22em;
+    text-transform: uppercase; color: var(--mauve); margin-bottom: 1rem;
+  }
+  .section-label::before { content: ''; display: block; width: 24px; height: 1px; background: var(--mauve); }
+  h2.display {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 300; line-height: 1.15;
+    letter-spacing: -.01em;
+  }
+  h2.display em { font-style: italic; color: var(--deep); }
+
+  /* ── ABOUT ── */
+  .about {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+    align-items: center; max-width: 1200px; margin: 0 auto;
+  }
+  .about-images {
+    position: relative; height: 540px;
+  }
+  .about-img-main {
+    position: absolute; top: 0; left: 0; width: 75%; height: 82%;
+    object-fit: cover; border-radius: 2px;
+    box-shadow: 32px 32px 0 var(--blush);
+  }
+  .about-img-accent {
+    position: absolute; bottom: 0; right: 0; width: 52%; height: 54%;
+    object-fit: cover; border-radius: 2px;
+    border: 6px solid var(--white);
+    box-shadow: 0 16px 48px rgba(0,0,0,.12);
+  }
+  .about-badge {
+    position: absolute; top: 56%; left: 68%;
+    background: var(--deep); color: var(--white);
+    padding: 1.2rem 1.4rem; text-align: center;
+    z-index: 2; border-radius: 2px;
+    box-shadow: 0 8px 24px rgba(0,0,0,.15);
+  }
+  .about-badge strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 2rem; line-height: 1; }
+  .about-badge span { font-size: .65rem; letter-spacing: .14em; text-transform: uppercase; opacity: .8; }
+
+  .about-text p {
+    color: var(--muted); line-height: 1.8; font-size: .97rem; margin-top: 1.6rem;
+  }
+  .about-stats {
+    display: flex; gap: 2.5rem; margin-top: 2.5rem;
+    padding-top: 2.5rem; border-top: 1px solid rgba(0,0,0,.08);
+  }
+  .stat strong {
+    display: block; font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem; font-weight: 300; color: var(--deep);
+  }
+  .stat span { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+
+  /* ── SERVICES ── */
+  .services-section { background: var(--black); }
+  .services-head { max-width: 1200px; margin: 0 auto 4rem; display: flex; align-items: flex-end; justify-content: space-between; }
+  .services-head h2.display { color: var(--white); }
+  .services-head h2.display em { color: var(--mauve); }
+  .services-head .section-label { color: var(--gold); }
+  .services-head .section-label::before { background: var(--gold); }
+  .services-link { color: var(--gold); font-size: .8rem; font-weight: 500; letter-spacing: .08em; text-decoration: none; border-bottom: 1px solid rgba(201,169,110,.4); padding-bottom: 2px; }
+  .services-link:hover { border-color: var(--gold); }
+
+  .services-grid {
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px;
+    background: rgba(255,255,255,.06);
+  }
+  .service-card {
+    background: var(--black); padding: 3rem 2.5rem;
+    border: 1px solid rgba(255,255,255,.06);
+    transition: background .3s;
+    cursor: default;
+  }
+  .service-card:hover { background: #141414; }
+  .service-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(196,145,158,.12); display: flex; align-items: center;
+    justify-content: center; margin-bottom: 1.8rem; font-size: 1.3rem;
+  }
+  .service-card h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400;
+    color: var(--white); margin-bottom: .8rem;
+  }
+  .service-card p { font-size: .87rem; color: rgba(255,255,255,.45); line-height: 1.7; }
+  .service-card .price {
+    margin-top: 1.6rem; font-size: .78rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase; color: var(--gold);
+  }
+
+  /* ── GALLERY ── */
+  .gallery-section { padding: 7rem 0; background: var(--blush); }
+  .gallery-head { padding: 0 3rem; max-width: 1200px; margin: 0 auto 3.5rem; }
+  .gallery-scroll {
+    display: flex; gap: 1.2rem;
+    padding: 0 3rem;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .gallery-scroll::-webkit-scrollbar { display: none; }
+  .gallery-item {
+    flex: 0 0 320px; height: 420px; scroll-snap-align: start;
+    overflow: hidden; border-radius: 4px; position: relative;
+  }
+  .gallery-item img {
+    width: 100%; height: 100%; object-fit: cover;
+    transition: transform .6s cubic-bezier(.25,.46,.45,.94);
+  }
+  .gallery-item:hover img { transform: scale(1.06); }
+  .gallery-item-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,.45) 0%, transparent 50%);
+    opacity: 0; transition: opacity .3s;
+    display: flex; align-items: flex-end; padding: 1.4rem;
+  }
+  .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+  .gallery-item-overlay span { color: var(--white); font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
+
+  /* ── SCALP ── */
+  .scalp-section {
+    display: grid; grid-template-columns: 1fr 1fr;
+    max-width: 100%; overflow: hidden;
+  }
+  .scalp-image {
+    min-height: 560px; background:
+      url('https://d14tal8bchn59o.cloudfront.net/wRpw4bH-580u8B-qYXMSVOFJ9WMQSwSG583MRdWYB98/rs:fit:960:435:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2568443/SalonBliss.org_pics_3_original.jpg')
+      center/cover no-repeat;
+  }
+  .scalp-content {
+    background: var(--deep); padding: 6rem 5rem;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .scalp-content .section-label { color: rgba(255,255,255,.6); }
+  .scalp-content .section-label::before { background: rgba(255,255,255,.4); }
+  .scalp-content h2.display { color: var(--white); }
+  .scalp-content h2.display em { color: var(--blush); }
+  .scalp-content p { color: rgba(255,255,255,.75); line-height: 1.8; font-size: .97rem; margin-top: 1.6rem; }
+  .scalp-features { margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem; }
+  .scalp-feature {
+    display: flex; align-items: center; gap: 1rem;
+    color: rgba(255,255,255,.85); font-size: .87rem;
+  }
+  .scalp-feature::before {
+    content: ''; flex-shrink: 0; width: 20px; height: 1px;
+    background: var(--gold);
+  }
+
+  /* ── HOURS / INFO ── */
+  .info-section {
+    display: grid; grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 5rem; max-width: 1200px; margin: 0 auto;
+  }
+  .info-section h3 {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400;
+    margin-bottom: 1.6rem;
+  }
+  .hours-list { list-style: none; }
+  .hours-list li {
+    display: flex; justify-content: space-between;
+    padding: .65rem 0; border-bottom: 1px solid rgba(0,0,0,.06);
+    font-size: .87rem; color: var(--muted);
+  }
+  .hours-list li span:first-child { font-weight: 500; color: var(--text); }
+  .hours-list li.today { color: var(--deep); font-weight: 600; }
+  .hours-list li.today span:first-child { color: var(--deep); }
+
+  .contact-link {
+    display: flex; align-items: center; gap: .8rem;
+    font-size: .9rem; color: var(--muted); text-decoration: none;
+    margin-bottom: 1.2rem; transition: color .2s;
+  }
+  .contact-link:hover { color: var(--deep); }
+  .contact-icon { width: 36px; height: 36px; border-radius: 50%; background: var(--blush); display: flex; align-items: center; justify-content: center; font-size: .95rem; flex-shrink: 0; }
+
+  .social-row { display: flex; gap: 1rem; margin-top: .5rem; }
+  .social-btn {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: var(--blush); display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; text-decoration: none; color: var(--deep);
+    transition: background .25s, color .25s;
+  }
+  .social-btn:hover { background: var(--deep); color: var(--white); }
+
+  /* ── TESTIMONIAL ── */
+  .testimonial-section {
+    background: var(--blush); text-align: center;
+    padding: 6rem 3rem;
+  }
+  .testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.5rem, 3vw, 2.4rem); font-weight: 300; font-style: italic;
+    line-height: 1.5; color: var(--text); max-width: 820px; margin: 1.5rem auto 2rem;
+  }
+  .testimonial-author { font-size: .78rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); }
+  .stars { color: var(--gold); font-size: 1rem; letter-spacing: .1em; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black); color: rgba(255,255,255,.5);
+    padding: 3rem; display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif; font-size: 1.4rem;
+    color: var(--white); font-weight: 400; letter-spacing: .06em;
+    text-decoration: none;
+  }
+  footer p { font-size: .75rem; }
+  .footer-links { display: flex; gap: 1.5rem; list-style: none; flex-wrap: wrap; }
+  .footer-links a { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: rgba(255,255,255,.4); text-decoration: none; transition: color .2s; }
+  .footer-links a:hover { color: var(--gold); }
+
+  /* ── REVEAL ANIMATION ── */
+  .reveal {
+    opacity: 0; transform: translateY(32px);
+    transition: opacity .9s cubic-bezier(.25,.46,.45,.94), transform .9s cubic-bezier(.25,.46,.45,.94);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-delay-1 { transition-delay: .15s; }
+  .reveal-delay-2 { transition-delay: .3s; }
+  .reveal-delay-3 { transition-delay: .45s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 5rem 1.5rem; }
+    .about { grid-template-columns: 1fr; gap: 3rem; }
+    .about-images { height: 380px; }
+    .services-grid { grid-template-columns: 1fr; }
+    .scalp-section { grid-template-columns: 1fr; }
+    .scalp-image { min-height: 320px; }
+    .scalp-content { padding: 4rem 2rem; }
+    .info-section { grid-template-columns: 1fr; gap: 3rem; }
+    .hero { grid-template-columns: 1fr; min-height: 100svh; }
+    .hero-panels { grid-template-columns: 1fr; }
+    .hero-panel:nth-child(2) { display: none; }
+    .hero-divider { display: none; }
+    .hero-content { padding: 0 1.5rem 5rem; }
+    .hero-labels { right: 1.5rem; bottom: 5rem; }
+    footer { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="salon-bliss-home.html" class="nav-logo">Salon Bliss</a>
+  <ul class="nav-links">
+    <li><a href="salon-bliss-home.html" class="active">Home</a></li>
+    <li><a href="salon-bliss-services.html">Services</a></li>
+    <li><a href="salon-bliss-gallery.html">Gallery</a></li>
+    <li><a href="salon-bliss-specials.html">Specials</a></li>
+    <li><a href="salon-bliss-staff.html">Our Staff</a></li>
+    <li><a href="salon-bliss-contact.html">Contact</a></li>
+    <li><a href="tel:3526209360" class="nav-cta">Book Now</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <!-- Two real photo panels side by side -->
+  <div class="hero-panels">
+    <div class="hero-panel">
+      <img src="https://d14tal8bchn59o.cloudfront.net/YPb3VjZOzPShCzBPMp08PjerlKxDiVKpELQo6pD5d3k/rs:fill:500:500:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2245918/154626902_4112241918838327_4531853379372806567_n_original.jpg" alt="Salon Bliss Hair Color">
+    </div>
+    <div class="hero-panel">
+      <img src="https://d14tal8bchn59o.cloudfront.net/esluL9PMZnQF_TT1cs0mcva9aauACbAuBy8AYXJpk-w/rs:fill:500:500:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/4123269/IMG_7545_original.jpg" alt="Salon Bliss Hair Style">
+    </div>
+  </div>
+
+  <!-- Gold divider with diamond -->
+  <div class="hero-divider"></div>
+
+  <!-- Text overlay (left-anchored) -->
+  <div class="hero-content">
+    <div class="hero-eyebrow">Full Service Salon — Ocala, FL</div>
+    <h1>Where <em>beautiful</em><br>hair begins.</h1>
+    <div class="hero-rule"></div>
+    <p class="hero-sub">Expert hair color, cuts, extensions, nails & scalp therapy in the heart of downtown Ocala.</p>
+    <div class="hero-actions">
+      <a href="tel:3526209360" class="btn-primary">
+        <span>📞</span> Call to Book
+      </a>
+      <a href="salon-bliss-services.html" class="btn-ghost">Explore Services</a>
+    </div>
+  </div>
+
+  <!-- Bottom-right photo labels -->
+  <div class="hero-labels">
+    <span class="hero-label-tag">Hair Color</span>
+    <span class="hero-label-tag">Cuts & Style</span>
+  </div>
+
+  <!-- Scroll indicator centred at bottom -->
+  <a href="#about" class="hero-scroll">Scroll</a>
+</section>
+
+<!-- TICKER -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-inner">
+    <span class="ticker-item"><span class="ticker-dot"></span>Hair Color</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Cuts & Styles</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Hair Extensions</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Scalp Therapy</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Nails & Manicures</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Microblading</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Teeth Whitening</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Sunless Tanning</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Bridal Packages</span>
+    <!-- duplicate for seamless loop -->
+    <span class="ticker-item"><span class="ticker-dot"></span>Hair Color</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Cuts & Styles</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Hair Extensions</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Scalp Therapy</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Nails & Manicures</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Microblading</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Teeth Whitening</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Sunless Tanning</span>
+    <span class="ticker-item"><span class="ticker-dot"></span>Bridal Packages</span>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" style="padding: 8rem 3rem;">
+  <div class="about">
+    <div class="about-images reveal">
+      <img class="about-img-main"
+        src="https://d14tal8bchn59o.cloudfront.net/ZxkNaBhZORfkOadWI-B9FKMZ8_oBLjHjfA-7YupwGZc/rs:fit:960:435:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2245921/159171626_4149825635079955_2931949021400808424_n_original.jpg"
+        alt="Salon Interior">
+      <img class="about-img-accent"
+        src="https://d14tal8bchn59o.cloudfront.net/sEjiyx2FeklB6W6eQPpKFHa8zGtwtDk4wdIUWuldQ6s/rs:fill:960:960:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2246194/274686714_1197176791078938_1322932468918201144_n_original.jpg"
+        alt="Hair Styling">
+      <div class="about-badge">
+        <strong>10+</strong>
+        <span>Years of Bliss</span>
+      </div>
+    </div>
+    <div class="about-text reveal reveal-delay-1">
+      <div class="section-label">Our Story</div>
+      <h2 class="display">A sanctuary for your <em>best self</em></h2>
+      <p>Master stylist Jessica Baroni has built Salon Bliss into one of Ocala's most beloved destinations — a place where skilled artistry meets genuine care. Step away from the stresses of everyday life and into our state-of-the-art facility in beautiful Downtown Ocala.</p>
+      <p>From bold transformative color to precision cuts, nail artistry, scalp therapy, bridal packages, and beyond — every visit is a personalized experience crafted just for you.</p>
+      <div class="about-stats">
+        <div class="stat reveal reveal-delay-2">
+          <strong>5★</strong>
+          <span>Google Reviews</span>
+        </div>
+        <div class="stat reveal reveal-delay-3">
+          <strong>500+</strong>
+          <span>Happy Clients</span>
+        </div>
+        <div class="stat reveal reveal-delay-3">
+          <strong>8+</strong>
+          <span>Expert Stylists</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services-section" id="services">
+  <div class="services-head reveal">
+    <div>
+      <div class="section-label">What We Offer</div>
+      <h2 class="display">Services crafted<br>with <em>intention</em></h2>
+    </div>
+    <a href="salon-bliss-services.html" class="services-link">View all services →</a>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">✂️</div>
+      <h3>Bliss Basic</h3>
+      <p>15-min consultation + 45-min treatment including scalp & hair analysis, red light therapy, waterfall scalp massage, deep conditioning mask, eye mask, towel dry and comb-out.</p>
+      <div class="price">Starting at $100</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">✨</div>
+      <h3>Bliss Revitalize</h3>
+      <p>60-min treatment with everything in Basic, plus a mini moisturizing facial, guasha scalp exfoliation, and revitalizing steam treatment.</p>
+      <div class="price">Starting at $125</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">💎</div>
+      <h3>Bliss Absolute</h3>
+      <p>75-min consultation featuring all previous tiers plus scalp balance, scalp microbiome, and shoulder massage for the ultimate restoration.</p>
+      <div class="price">Starting at $150</div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">💅</div>
+      <h3>Nail Services</h3>
+      <p>Expert nail technicians transform your fingertips — from natural glowing manicures to bold, daring artistic designs and glittery shades.</p>
+      <div class="price">Ask for pricing</div>
+    </div>
+    <div class="service-card reveal reveal-delay-1">
+      <div class="service-icon">🌿</div>
+      <h3>Luxe Blowout</h3>
+      <p>Finish your experience with a tailored blow-dry that enhances your hair's natural texture and movement, leaving you polished and radiant.</p>
+      <div class="price">From $20</div>
+    </div>
+    <div class="service-card reveal reveal-delay-2">
+      <div class="service-icon">💍</div>
+      <h3>Bridal Packages</h3>
+      <p>The full team assembles for your special day — professional hair, nail, and makeup services for you and your entire wedding party.</p>
+      <div class="price">Custom quote</div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery-section" id="gallery">
+  <div class="gallery-head reveal">
+    <div class="section-label">Our Work</div>
+    <h2 class="display">Beauty that <em>speaks</em><br>for itself</h2>
+  </div>
+  <div class="gallery-scroll">
+    <div class="gallery-item">
+      <img src="https://d14tal8bchn59o.cloudfront.net/sEjiyx2FeklB6W6eQPpKFHa8zGtwtDk4wdIUWuldQ6s/rs:fill:960:960:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2246194/274686714_1197176791078938_1322932468918201144_n_original.jpg" alt="Hair color result">
+      <div class="gallery-item-overlay"><span>Color</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://d14tal8bchn59o.cloudfront.net/Uo5Y6L0xST80oQYp46XY-MlNV09LDl89IWKjgg8xBDs/rs:fill:960:960:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2568442/SalonBliss.org_pics_original.jpg" alt="Salon work">
+      <div class="gallery-item-overlay"><span>Style</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://d14tal8bchn59o.cloudfront.net/qYmYnt3A7LOkvRDDW7u3NtJKOL9lMjS8J5HxIJy_rJU/rs:fill:960:960:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2246192/274481629_446424380608075_8789073622668407742_n_original.jpg" alt="Salon interior">
+      <div class="gallery-item-overlay"><span>Salon</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://d14tal8bchn59o.cloudfront.net/ZxkNaBhZORfkOadWI-B9FKMZ8_oBLjHjfA-7YupwGZc/rs:fit:960:435:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2245921/159171626_4149825635079955_2931949021400808424_n_original.jpg" alt="Hair styling">
+      <div class="gallery-item-overlay"><span>Balayage</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://d14tal8bchn59o.cloudfront.net/1Q5K_d1paP2IOgyFUJM9ANj2jxQFJhsZ0feVS-D8kuc/rs:fit:960:435:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2245925/271308042_5091864734209369_5620103455417672961_n_original.jpg" alt="Color treatment">
+      <div class="gallery-item-overlay"><span>Color</span></div>
+    </div>
+    <div class="gallery-item">
+      <img src="https://d14tal8bchn59o.cloudfront.net/kUOszWy8PSTVVkNHHqZwAyoxPG2M4nDE0pc8WLmxACs/rs:fit:960:435:1/plain/https://02f0a56ef46d93f03c90-22ac5f107621879d5667e0d7ed595bdb.ssl.cf2.rackcdn.com/sites/5460/photos/2245922/161322340_4166883136707538_6545299219758326871_n_original.jpg" alt="Nail art">
+      <div class="gallery-item-overlay"><span>Nails</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial-section">
+  <div class="section-label" style="justify-content:center;">Client Love</div>
+  <div class="stars">★★★★★</div>
+  <blockquote class="testimonial-quote">"Whether you're looking for a hairstyle that's traditional, classic, creative, sassy, funky, or just fun — the stylists at Salon Bliss are up for the task."</blockquote>
+  <div class="testimonial-author">— Ocala, FL Community Review</div>
+</section>
+
+<!-- SCALP THERAPY -->
+<div class="scalp-section" id="scalp">
+  <div class="scalp-image"></div>
+  <div class="scalp-content">
+    <div class="section-label">Wellness Service</div>
+    <h2 class="display">What is<br><em>Scalp Therapy?</em></h2>
+    <p>Scalp therapy is an incredibly beneficial practice for maintaining the health and beauty of your hair and scalp. Every session includes use of a red light therapy bed, encouraging collagen production, muscle relaxation, and reduced inflammation.</p>
+    <div class="scalp-features">
+      <div class="scalp-feature">Beneficial for thinning hair & dandruff</div>
+      <div class="scalp-feature">Headache & tension relief</div>
+      <div class="scalp-feature">Treats psoriasis & scalp conditions</div>
+      <div class="scalp-feature">Red light therapy included in all sessions</div>
+    </div>
+  </div>
+</div>
+
+<!-- INFO / HOURS -->
+<section id="info">
+  <div class="info-section">
+    <div class="reveal">
+      <div class="section-label">Find Us</div>
+      <h3>Salon Bliss<br>Hair & Nail Salon</h3>
+      <a href="https://maps.google.com/maps?q=104+SE+1st+AVE+Suite+D,+Ocala,+FL+34471" class="contact-link">
+        <div class="contact-icon">📍</div>
+        104 SE 1st Ave, Suite D<br>Ocala, Florida 34471
+      </a>
+      <a href="tel:3526209360" class="contact-link">
+        <div class="contact-icon">📞</div>
+        (352) 620-9360
+      </a>
+      <div class="social-row">
+        <a href="https://www.facebook.com/salonblissocala" class="social-btn" aria-label="Facebook">f</a>
+        <a href="https://www.yelp.com/biz/salon-bliss-ocala" class="social-btn" aria-label="Yelp">★</a>
+        <a href="https://www.instagram.com/salonblissocala" class="social-btn" aria-label="Instagram">📷</a>
+      </div>
+    </div>
+    <div class="reveal reveal-delay-1">
+      <h3>Hours</h3>
+      <ul class="hours-list">
+        <li><span>Monday</span><span>9:00am – 4:00pm</span></li>
+        <li><span>Tuesday</span><span>9:00am – 5:00pm</span></li>
+        <li><span>Wednesday</span><span>9:00am – 8:00pm</span></li>
+        <li><span>Thursday</span><span>9:00am – 7:00pm</span></li>
+        <li><span>Friday</span><span>9:00am – 7:00pm</span></li>
+        <li><span>Saturday</span><span>9:00am – 3:00pm</span></li>
+        <li><span>Sunday</span><span>Closed</span></li>
+      </ul>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <h3>Book Your Visit</h3>
+      <p style="color:var(--muted); font-size:.9rem; line-height:1.7; margin-bottom:1.8rem;">Simply give us a call and leave the styling to us. Check back often for monthly specials and gift certificate deals!</p>
+      <a href="tel:3526209360" class="btn-primary" style="display:inline-flex;">Call to Book →</a>
+      <p style="margin-top:1.2rem; color:var(--muted); font-size:.78rem;">Walk-ins welcome based on availability</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="salon-bliss-home.html" class="footer-logo">Salon Bliss</a>
+  <ul class="footer-links">
+    <li><a href="#">Home</a></li>
+    <li><a href="salon-bliss-services.html">Services</a></li>
+    <li><a href="salon-bliss-gallery.html">Gallery</a></li>
+    <li><a href="salon-bliss-products.html">Products</a></li>
+    <li><a href="salon-bliss-specials.html">Specials</a></li>
+    <li><a href="salon-bliss-staff.html">Our Staff</a></li>
+    <li><a href="salon-bliss-reviews.html">Reviews</a></li>
+    <li><a href="salon-bliss-contact.html">Contact</a></li>
+  </ul>
+  <p>© 2026 Salon Bliss. All rights reserved.</p>
+</footer>
+
+<script>
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Highlight today's hours
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const today = days[new Date().getDay()];
+  document.querySelectorAll('.hours-list li').forEach(li => {
+    if (li.querySelector('span')?.textContent === today) {
+      li.classList.add('today');
+    }
+  });
+</script>
+</body>
+</html>
