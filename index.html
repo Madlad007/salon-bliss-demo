@@ -473,10 +473,97 @@
   .reveal-delay-2 { transition-delay: .3s; }
   .reveal-delay-3 { transition-delay: .45s; }
 
+  /* ── HAMBURGER BUTTON ── */
+  .nav-hamburger {
+    display: none;
+    flex-direction: column; justify-content: center; align-items: center;
+    gap: 5px; width: 40px; height: 40px;
+    background: none; border: none; cursor: pointer;
+    padding: 4px; border-radius: 4px;
+    transition: background .2s;
+  }
+  .nav-hamburger:hover { background: rgba(255,255,255,.1); }
+  nav.scrolled .nav-hamburger:hover { background: rgba(0,0,0,.06); }
+  .nav-hamburger span {
+    display: block; width: 22px; height: 1.5px;
+    background: var(--white); border-radius: 2px;
+    transition: transform .3s, opacity .3s, background .3s;
+    transform-origin: center;
+  }
+  nav.scrolled .nav-hamburger span { background: var(--text); }
+  /* Animated X when open */
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+  /* ── MOBILE DRAWER ── */
+  .nav-drawer {
+    display: none; /* hidden on desktop */
+  }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     nav { padding: 1rem 1.5rem; }
+
+    /* Hide desktop links, show hamburger */
     .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+
+    /* Full-screen slide-down drawer */
+    .nav-drawer {
+      display: block;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0; z-index: 99;
+      background: var(--black);
+      transform: translateY(-100%);
+      transition: transform .38s cubic-bezier(.4,0,.2,1);
+      overflow-y: auto;
+      padding: 6rem 2rem 3rem;
+      pointer-events: none;
+    }
+    .nav-drawer.open {
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .nav-drawer ul {
+      list-style: none;
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .nav-drawer ul li a {
+      display: block;
+      font-size: 1.6rem; font-weight: 300;
+      font-family: 'Cormorant Garamond', serif;
+      color: rgba(255,255,255,.85); text-decoration: none;
+      padding: 1.1rem 0;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      letter-spacing: .02em;
+      transition: color .2s;
+    }
+    .nav-drawer ul li a:hover { color: var(--mauve); }
+    .nav-drawer ul li:last-child a {
+      margin-top: 1.5rem;
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--deep); color: var(--white) !important;
+      padding: .85rem 2rem; border-radius: 2rem; border: none;
+      font-family: 'Outfit', sans-serif; font-size: .88rem;
+      font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    }
+
+    /* Drawer social row */
+    .nav-drawer-social {
+      display: flex; gap: .8rem; margin-top: 2.5rem;
+    }
+    .nav-drawer-social a {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; text-decoration: none; color: rgba(255,255,255,.6);
+      transition: background .2s, color .2s;
+    }
+    .nav-drawer-social a:hover { background: var(--deep); color: var(--white); }
+
+    /* Prevent body scroll when drawer open */
+    body.menu-open { overflow: hidden; }
+
     section { padding: 5rem 1.5rem; }
     .about { grid-template-columns: 1fr; gap: 3rem; }
     .about-images { height: 380px; }
@@ -485,13 +572,33 @@
     .scalp-image { min-height: 320px; }
     .scalp-content { padding: 4rem 2rem; }
     .info-section { grid-template-columns: 1fr; gap: 3rem; }
+
+    /* Hero mobile fixes */
     .hero { grid-template-columns: 1fr; min-height: 100svh; }
     .hero-panels { grid-template-columns: 1fr; }
     .hero-panel:nth-child(2) { display: none; }
     .hero-divider { display: none; }
-    .hero-content { padding: 0 1.5rem 5rem; }
-    .hero-labels { right: 1.5rem; bottom: 5rem; }
+    /* Push content up so buttons don't sit at the very bottom edge */
+    .hero-content { padding: 0 1.5rem 8rem; max-width: 100%; }
+    /* Move hero-sub font size down a touch on small screens */
+    .hero-sub { font-size: .93rem; }
+    /* Stack actions vertically so nothing overlaps */
+    .hero-actions { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .btn-primary { width: 100%; max-width: 280px; justify-content: center; }
+    /* Hide the label tags on mobile — they overlap the buttons */
+    .hero-labels { display: none; }
+    /* Move scroll indicator so it doesn't overlap the buttons */
+    .hero-scroll { bottom: 1.8rem; }
+
     footer { flex-direction: column; align-items: flex-start; }
+    .gallery-item { flex: 0 0 260px; height: 340px; }
+    .gallery-section { padding: 5rem 0; }
+    .gallery-head { padding: 0 1.5rem; }
+    .gallery-scroll { padding: 0 1.5rem; }
+  }
+  @media (max-width: 480px) {
+    .hero h1 { font-size: clamp(2.6rem, 11vw, 3.4rem); }
+    .hero-eyebrow { font-size: .65rem; }
   }
 </style>
 </head>
@@ -500,6 +607,8 @@
 <!-- NAV -->
 <nav id="navbar">
   <a href="salon-bliss-home.html" class="nav-logo">Salon Bliss</a>
+
+  <!-- Desktop links -->
   <ul class="nav-links">
     <li><a href="salon-bliss-home.html" class="active">Home</a></li>
     <li><a href="salon-bliss-services.html">Services</a></li>
@@ -509,7 +618,31 @@
     <li><a href="salon-bliss-contact.html">Contact</a></li>
     <li><a href="tel:3526209360" class="nav-cta">Book Now</a></li>
   </ul>
+
+  <!-- Hamburger (mobile only) -->
+  <button class="nav-hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-drawer" id="navDrawer" aria-hidden="true">
+  <ul>
+    <li><a href="salon-bliss-home.html" onclick="closeMenu()">Home</a></li>
+    <li><a href="salon-bliss-services.html" onclick="closeMenu()">Services</a></li>
+    <li><a href="salon-bliss-gallery.html" onclick="closeMenu()">Gallery</a></li>
+    <li><a href="salon-bliss-specials.html" onclick="closeMenu()">Specials</a></li>
+    <li><a href="salon-bliss-staff.html" onclick="closeMenu()">Our Staff</a></li>
+    <li><a href="salon-bliss-reviews.html" onclick="closeMenu()">Reviews</a></li>
+    <li><a href="salon-bliss-contact.html" onclick="closeMenu()">Contact</a></li>
+    <li><a href="tel:3526209360" onclick="closeMenu()">📞 Book Now</a></li>
+  </ul>
+  <div class="nav-drawer-social">
+    <a href="https://www.facebook.com/salonblissocala" aria-label="Facebook">f</a>
+    <a href="https://www.instagram.com/salonblissocala" aria-label="Instagram">📷</a>
+    <a href="https://www.yelp.com/biz/salon-bliss-ocala" aria-label="Yelp">★</a>
+  </div>
+</div>
 
 <!-- HERO -->
 <section class="hero" id="home">
@@ -782,6 +915,35 @@
   const navbar = document.getElementById('navbar');
   window.addEventListener('scroll', () => {
     navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Hamburger / mobile drawer
+  const hamburgerBtn = document.getElementById('hamburgerBtn');
+  const navDrawer = document.getElementById('navDrawer');
+  let menuOpen = false;
+
+  function openMenu() {
+    menuOpen = true;
+    hamburgerBtn.classList.add('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'true');
+    navDrawer.classList.add('open');
+    navDrawer.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('menu-open');
+  }
+  function closeMenu() {
+    menuOpen = false;
+    hamburgerBtn.classList.remove('open');
+    hamburgerBtn.setAttribute('aria-expanded', 'false');
+    navDrawer.classList.remove('open');
+    navDrawer.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('menu-open');
+  }
+  hamburgerBtn.addEventListener('click', () => {
+    menuOpen ? closeMenu() : openMenu();
+  });
+  // Close on Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && menuOpen) closeMenu();
   });
 
   // Reveal on scroll
